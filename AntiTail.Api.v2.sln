@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiTail.Persistence", "Ant
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiTail.Application", "AntiTail.Application\AntiTail.Application.csproj", "{C4080096-45A6-4075-B294-F01FBABE4AE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiTail.Infrasctructure", "AntiTail.Infrasctructure\AntiTail.Infrasctructure.csproj", "{A00D6CE3-E506-4CE2-9883-A36AAD0CCC19}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiTail.Infrastructure", "AntiTail.Infrasctructure\AntiTail.Infrastructure.csproj", "{A00D6CE3-E506-4CE2-9883-A36AAD0CCC19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
