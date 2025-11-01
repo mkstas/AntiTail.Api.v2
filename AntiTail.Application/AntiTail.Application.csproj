@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AntiTail.Domain\AntiTail.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
