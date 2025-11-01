@@ -1,0 +1,9 @@
+﻿using AntiTail.Domain.Models;
+
+namespace AntiTail.Domain.Interfaces.Auth
+{
+    public interface IJwtProvider
+    {
+        string GenerateToken(User user);
+    }
+}
