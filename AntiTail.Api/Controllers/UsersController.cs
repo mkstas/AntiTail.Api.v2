@@ -1,6 +1,6 @@
 ﻿using AntiTail.API.Contracts.Users;
 using AntiTail.Domain.Interfaces.Users;
-using Microsoft.AspNetCore.Authorization;
+using AntiTail.Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AntiTail.Api.Controllers
@@ -15,21 +15,45 @@ namespace AntiTail.Api.Controllers
         [HttpPost("login")]
         public async Task<IResult> Login([FromBody] LoginUserRequest request)
         {
-            var context = HttpContext;
+            try
+            {
+                var token = await _usersService.Login(request.Login, request.Password);
 
-            var token = await _usersService.Login(request.Login, request.Password);
+                HttpContext.Response.Cookies.Append("very-non-secret-cookie", token);
 
-            context.Response.Cookies.Append("very-non-secret-cookie", token);
+                return Results.Ok(token);
+            }
+            catch (NotFoundException ex)
+            {
+                return Results.NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
 
-            return Results.Ok(token);
+                return Results.InternalServerError();
+            }
         }
 
         [HttpPost("register")]
         public async Task<IResult> Register([FromBody] RegisterUserRequest request)
         {
-            await _usersService.Register(request.Login, request.Password);
+            try
+            {
+                await _usersService.Register(request.Login, request.Password);
 
-            return Results.Ok();
+                return Results.Created();
+            }
+            catch (ConflictException ex)
+            {
+                return Results.Conflict(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return Results.InternalServerError();
+            }
         }
     }
 }
