@@ -1,6 +1,7 @@
 ﻿using AntiTail.Domain.Interfaces.Auth;
 using AntiTail.Domain.Interfaces.Users;
 using AntiTail.Domain.Models;
+using AntiTail.Infrastructure.Exceptions;
 
 namespace AntiTail.Application.Services
 {
@@ -19,9 +20,9 @@ namespace AntiTail.Application.Services
 
             var isVerified = _passwordHasher.Verify(password, user.PasswordHash);
 
-            if (isVerified == false)
+            if (!isVerified)
             {
-                throw new Exception();
+                throw new BadRequestException("Incorrect login or password.");
             }
 
             var token = _jwtProvider.GenerateToken(user);

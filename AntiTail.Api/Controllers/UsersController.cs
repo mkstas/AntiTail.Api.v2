@@ -21,11 +21,15 @@ namespace AntiTail.Api.Controllers
 
                 HttpContext.Response.Cookies.Append("very-non-secret-cookie", token);
 
-                return Results.Ok(token);
+                return Results.NoContent();
             }
             catch (NotFoundException ex)
             {
                 return Results.NotFound(new { message = ex.Message });
+            }
+            catch (BadRequestException ex)
+            {
+                return Results.BadRequest(new { message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -42,7 +46,7 @@ namespace AntiTail.Api.Controllers
             {
                 await _usersService.Register(request.Login, request.Password);
 
-                return Results.Created();
+                return Results.NoContent();
             }
             catch (ConflictException ex)
             {
