@@ -7,5 +7,7 @@
         public string Login { get; set; } = login;
 
         public string PasswordHash { get; set; } = passwordHash;
+
+        public List<Subject> Subjects { get; set; } = [];
     }
 }
