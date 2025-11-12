@@ -8,10 +8,14 @@ namespace AntiTail.Persistence
         : DbContext(options)
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new SubjectConfiguration());
+            modelBuilder.ApplyConfiguration(new TaskConfiguration());
+            modelBuilder.ApplyConfiguration(new SubtaskConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
