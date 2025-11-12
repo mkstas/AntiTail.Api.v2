@@ -13,7 +13,7 @@ services:
 
   pgadmin:
     container_name: antitail_pgadmin
-    image: dpage/pgadmin4:9.8
+    image: dpage/pgadmin4:9.9
     environment:
       PGADMIN_DEFAULT_EMAIL: root@local.com
       PGADMIN_DEFAULT_PASSWORD: root
