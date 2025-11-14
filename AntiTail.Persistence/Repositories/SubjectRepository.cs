@@ -43,7 +43,7 @@ namespace AntiTail.Persistence.Repositories
             return subject;
         }
 
-        public async Task<Subject> Update(long userId, long id, string title)
+        public async Task<Subject> Update(long id, long userId, string title)
         {
             bool isExists = await _dbContext.Subjects
                 .AsNoTracking()
@@ -75,12 +75,12 @@ namespace AntiTail.Persistence.Repositories
                 .Where(s => s.Id == id)
                 .ExecuteDeleteAsync();
 
-            if (deletedRows > 0)
+            if (deletedRows == 0)
             {
-                return true;
+                throw new NotFoundException("Subject is not found");
             }
 
-            throw new NotFoundException("Subject is not found");
+            return true;
         }
     }
 }

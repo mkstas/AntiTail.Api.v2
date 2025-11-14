@@ -23,9 +23,9 @@ namespace AntiTail.Application.Services
             return await _subjectRepository.Create(userId, title);
         }
 
-        public async Task<Subject> UpdateSubject(long userId, long id, string title)
+        public async Task<Subject> UpdateSubject(long id, long userId, string title)
         {
-            return await _subjectRepository.Update(userId, id, title);
+            return await _subjectRepository.Update(id, userId, title);
         }
 
         public async Task<bool> DeleteSubject(long id)

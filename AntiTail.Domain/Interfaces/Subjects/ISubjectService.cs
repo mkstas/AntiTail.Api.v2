@@ -10,7 +10,7 @@ namespace AntiTail.Domain.Interfaces.Subjects
 
         Task<Subject> CreateSubject(long userId, string title);
 
-        Task<Subject> UpdateSubject(long userId, long id, string title);
+        Task<Subject> UpdateSubject(long id, long userId, string title);
 
         Task<bool> DeleteSubject(long id);
     }
