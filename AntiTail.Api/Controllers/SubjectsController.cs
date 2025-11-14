@@ -19,7 +19,10 @@ namespace AntiTail.Api.Controllers
             {
                 var subjects = await _subjectService.GetAllSubjects(1);
 
-                return Results.Ok(subjects);
+                List<SubjectResponse> response = [.. subjects.Select(
+                    s => new SubjectResponse(s.Id, s.UserId, s.Title))];
+
+                return Results.Ok(response);
             }
             catch (NotFoundException ex)
             {
@@ -33,14 +36,16 @@ namespace AntiTail.Api.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:long}")]
         public async Task<IResult> GetSubjectById([FromRoute] long id)
         {
             try
             {
                 var subject = await _subjectService.GetSubjectById(id);
 
-                return Results.Ok(subject);
+                var response = new SubjectResponse(subject.Id, subject.UserId, subject.Title);
+
+                return Results.Ok(response);
             }
             catch (NotFoundException ex)
             {
@@ -60,7 +65,8 @@ namespace AntiTail.Api.Controllers
             try
             {
                 var subject = await _subjectService.CreateSubject(1, request.Title);
-                var response = new CreateSubjectResponse(subject.Id, 1, subject.Title);
+
+                var response = new SubjectResponse(subject.Id, 1, subject.Title);
 
                 return Results.Created($"/subjects/{subject.Id}", response);
             }
@@ -76,15 +82,16 @@ namespace AntiTail.Api.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:long}")]
         public async Task<IResult> UpdateSubject(
             [FromRoute] long id,
             [FromBody] UpdateSubjectRequest request)
         {
             try
             {
-                var subject = await _subjectService.UpdateSubject(1, id, request.Title);
-                var response = new UpdateSubjectResponse(subject.Id, 1, subject.Title);
+                var subject = await _subjectService.UpdateSubject(id, 1, request.Title);
+
+                var response = new SubjectResponse(subject.Id, 1, subject.Title);
 
                 return Results.Ok(response);
             }
@@ -104,7 +111,7 @@ namespace AntiTail.Api.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:long}")]
         public async Task<IResult> DeleteSubject(
             [FromRoute] long id)
         {

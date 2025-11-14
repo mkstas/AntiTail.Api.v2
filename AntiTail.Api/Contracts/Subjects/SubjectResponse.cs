@@ -1,6 +1,6 @@
 ﻿namespace AntiTail.Api.Contracts.Subjects
 {
-    public record CreateSubjectResponse(
+    public record SubjectResponse(
         long Id,
         long UserId,
         string Title);
