@@ -6,7 +6,7 @@
         Succeeded,
     }
 
-    public class Task(long subjectId, string title, string? description = null)
+    public class Exercise(long subjectId, string title, string description = "")
     {
         public long Id { get; set; }
 
