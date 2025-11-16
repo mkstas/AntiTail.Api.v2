@@ -9,12 +9,14 @@ namespace AntiTail.Persistence
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Exercise> Exercises { get; set; }
+        public DbSet<Subtask> Subtasks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new SubjectConfiguration());
-            modelBuilder.ApplyConfiguration(new TaskConfiguration());
+            modelBuilder.ApplyConfiguration(new ExerciseConfiguration());
             modelBuilder.ApplyConfiguration(new SubtaskConfiguration());
 
             base.OnModelCreating(modelBuilder);

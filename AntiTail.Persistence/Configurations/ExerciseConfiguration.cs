@@ -4,46 +4,46 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AntiTail.Persistence.Configurations
 {
-    public class TaskConfiguration : IEntityTypeConfiguration<Domain.Models.Task>
+    public class ExerciseConfiguration : IEntityTypeConfiguration<Exercise>
     {
-        public void Configure(EntityTypeBuilder<Domain.Models.Task> builder)
+        public void Configure(EntityTypeBuilder<Exercise> builder)
         {
             builder
-                .ToTable("tasks")
-                .HasKey(s => s.Id);
+                .ToTable("exercises")
+                .HasKey(e => e.Id);
 
             builder
-                .HasOne(t => t.Subject)
-                .WithMany(s => s.Tasks)
-                .HasForeignKey(t => t.SubjectId);
+                .HasOne(e => e.Subject)
+                .WithMany(s => s.Exercises)
+                .HasForeignKey(e => e.SubjectId);
 
             builder
-                .HasMany(t => t.Subtasks)
-                .WithOne(s => s.Task)
-                .HasForeignKey(s => s.TaskId);
+                .HasMany(e => e.Subtasks)
+                .WithOne(s => s.Exercise)
+                .HasForeignKey(s => s.ExerciseId);
 
             builder
-                .Property(t => t.Id)
+                .Property(e => e.Id)
                 .HasColumnName("id");
 
             builder
-                .Property(t => t.SubjectId)
+                .Property(e => e.SubjectId)
                 .HasColumnName("subject_id");
 
             builder
-                .Property(t => t.Title)
+                .Property(e => e.Title)
                 .HasColumnName("title")
                 .HasMaxLength(64)
                 .IsRequired();
 
             builder
-                .Property(t => t.Description)
+                .Property(e => e.Description)
                 .HasColumnName("description")
                 .HasMaxLength(512)
-                .HasDefaultValue(null);
+                .HasDefaultValue("");
 
             builder
-                .Property(t => t.Status)
+                .Property(e => e.Status)
                 .HasColumnName("status")
                 .HasDefaultValue(Status.Pending)
                 .HasConversion<string>();

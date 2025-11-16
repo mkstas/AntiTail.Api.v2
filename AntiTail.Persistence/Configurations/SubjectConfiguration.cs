@@ -18,7 +18,7 @@ namespace AntiTail.Persistence.Configurations
                 .HasForeignKey(s => s.UserId);
 
             builder
-                .HasMany(s => s.Tasks)
+                .HasMany(s => s.Exercises)
                 .WithOne(t => t.Subject)
                 .HasForeignKey(t => t.SubjectId);
 

@@ -1,10 +1,10 @@
 ﻿namespace AntiTail.Domain.Models
 {
-    public class Subtask(long taskId, string title)
+    public class Subtask(long exerciseId, string title)
     {
         public long Id { get; set; }
 
-        public long ExerciseId { get; set; } = taskId;
+        public long ExerciseId { get; set; } = exerciseId;
 
         public string Title { get; set; } = title;
 

@@ -10,6 +10,6 @@
 
         public User? User { get; set; }
 
-        public List<Exercise> Exercises = [];
+        public List<Exercise> Exercises { get; set; } = [];
     }
 }

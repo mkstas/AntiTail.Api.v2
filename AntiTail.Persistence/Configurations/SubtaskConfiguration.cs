@@ -13,17 +13,17 @@ namespace AntiTail.Persistence.Configurations
                 .HasKey(s => s.Id);
 
             builder
-                .HasOne(s => s.Task)
-                .WithMany(t => t.Subtasks)
-                .HasForeignKey(s => s.TaskId);
+                .HasOne(s => s.Exercise)
+                .WithMany(e => e.Subtasks)
+                .HasForeignKey(s => s.ExerciseId);
 
             builder
                 .Property(s => s.Id)
                 .HasColumnName("id");
 
             builder
-                .Property(s => s.TaskId)
-                .HasColumnName("task_id");
+                .Property(s => s.ExerciseId)
+                .HasColumnName("exercise_id");
 
             builder
                 .Property(s => s.Title)

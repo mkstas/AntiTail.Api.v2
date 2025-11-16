@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AntiTail.Persistence.Migrations
 {
     [DbContext(typeof(AntiTailDbContext))]
-    [Migration("20251112164933_initial")]
+    [Migration("20251116230330_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -23,6 +23,46 @@ namespace AntiTail.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("AntiTail.Domain.Models.Exercise", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)")
+                        .HasDefaultValue("")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text")
+                        .HasDefaultValue("Pending")
+                        .HasColumnName("status");
+
+                    b.Property<long>("SubjectId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("subject_id");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)")
+                        .HasColumnName("title");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("exercises", (string)null);
+                });
 
             modelBuilder.Entity("AntiTail.Domain.Models.Subject", b =>
                 {
@@ -59,16 +99,16 @@ namespace AntiTail.Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
+                    b.Property<long>("ExerciseId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("exercise_id");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("text")
                         .HasDefaultValue("Pending")
                         .HasColumnName("status");
-
-                    b.Property<long>("TaskId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("task_id");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -78,47 +118,9 @@ namespace AntiTail.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TaskId");
+                    b.HasIndex("ExerciseId");
 
                     b.ToTable("subtasks", (string)null);
-                });
-
-            modelBuilder.Entity("AntiTail.Domain.Models.Task", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
-                        .HasColumnName("description");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("text")
-                        .HasDefaultValue("Pending")
-                        .HasColumnName("status");
-
-                    b.Property<long>("SubjectId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("subject_id");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)")
-                        .HasColumnName("title");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("tasks", (string)null);
                 });
 
             modelBuilder.Entity("AntiTail.Domain.Models.User", b =>
@@ -149,6 +151,17 @@ namespace AntiTail.Persistence.Migrations
                     b.ToTable("users", (string)null);
                 });
 
+            modelBuilder.Entity("AntiTail.Domain.Models.Exercise", b =>
+                {
+                    b.HasOne("AntiTail.Domain.Models.Subject", "Subject")
+                        .WithMany("Exercises")
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Subject");
+                });
+
             modelBuilder.Entity("AntiTail.Domain.Models.Subject", b =>
                 {
                     b.HasOne("AntiTail.Domain.Models.User", "User")
@@ -162,34 +175,23 @@ namespace AntiTail.Persistence.Migrations
 
             modelBuilder.Entity("AntiTail.Domain.Models.Subtask", b =>
                 {
-                    b.HasOne("AntiTail.Domain.Models.Task", "Task")
+                    b.HasOne("AntiTail.Domain.Models.Exercise", "Exercise")
                         .WithMany("Subtasks")
-                        .HasForeignKey("TaskId")
+                        .HasForeignKey("ExerciseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Task");
+                    b.Navigation("Exercise");
                 });
 
-            modelBuilder.Entity("AntiTail.Domain.Models.Task", b =>
+            modelBuilder.Entity("AntiTail.Domain.Models.Exercise", b =>
                 {
-                    b.HasOne("AntiTail.Domain.Models.Subject", "Subject")
-                        .WithMany("Tasks")
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Subject");
+                    b.Navigation("Subtasks");
                 });
 
             modelBuilder.Entity("AntiTail.Domain.Models.Subject", b =>
                 {
-                    b.Navigation("Tasks");
-                });
-
-            modelBuilder.Entity("AntiTail.Domain.Models.Task", b =>
-                {
-                    b.Navigation("Subtasks");
+                    b.Navigation("Exercises");
                 });
 
             modelBuilder.Entity("AntiTail.Domain.Models.User", b =>
