@@ -1,6 +1,8 @@
 ﻿using AntiTail.Api.Contracts.Subjects;
+using AntiTail.Api.Extensions;
 using AntiTail.Domain.Interfaces.Subjects;
 using AntiTail.Infrastructure.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AntiTail.Api.Controllers
@@ -8,21 +10,26 @@ namespace AntiTail.Api.Controllers
     [ApiController]
     [Route("subjects")]
     public class SubjectsController(
-        ISubjectService subjectService)
+        ISubjectService subjectService) : ControllerBase
     {
         private readonly ISubjectService _subjectService = subjectService;
 
         [HttpGet]
+        [Authorize]
         public async Task<IResult> GetAllSubjects()
         {
             try
             {
-                var subjects = await _subjectService.GetAllSubjects(1);
+                var subjects = await _subjectService.GetAllSubjects(User.GetUserId());
 
                 List<SubjectResponse> response = [.. subjects.Select(
                     s => new SubjectResponse(s.Id, s.UserId, s.Title))];
 
                 return Results.Ok(response);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Results.Unauthorized();
             }
             catch (NotFoundException ex)
             {
@@ -37,6 +44,7 @@ namespace AntiTail.Api.Controllers
         }
 
         [HttpGet("{id:long}")]
+        [Authorize]
         public async Task<IResult> GetSubjectById([FromRoute] long id)
         {
             try
@@ -46,6 +54,10 @@ namespace AntiTail.Api.Controllers
                 var response = new SubjectResponse(subject.Id, subject.UserId, subject.Title);
 
                 return Results.Ok(response);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Results.Unauthorized();
             }
             catch (NotFoundException ex)
             {
@@ -60,15 +72,20 @@ namespace AntiTail.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IResult> CreateSubject([FromBody] CreateSubjectRequest request)
         {
             try
             {
-                var subject = await _subjectService.CreateSubject(1, request.Title);
+                var subject = await _subjectService.CreateSubject(User.GetUserId(), request.Title);
 
-                var response = new SubjectResponse(subject.Id, 1, subject.Title);
+                var response = new SubjectResponse(subject.Id, User.GetUserId(), subject.Title);
 
                 return Results.Created($"/subjects/{subject.Id}", response);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Results.Unauthorized();
             }
             catch (ConflictException ex)
             {
@@ -83,17 +100,22 @@ namespace AntiTail.Api.Controllers
         }
 
         [HttpPut("{id:long}")]
+        [Authorize]
         public async Task<IResult> UpdateSubject(
             [FromRoute] long id,
             [FromBody] UpdateSubjectRequest request)
         {
             try
             {
-                var subject = await _subjectService.UpdateSubject(id, 1, request.Title);
+                var subject = await _subjectService.UpdateSubject(id, User.GetUserId(), request.Title);
 
-                var response = new SubjectResponse(subject.Id, 1, subject.Title);
+                var response = new SubjectResponse(subject.Id, User.GetUserId(), subject.Title);
 
                 return Results.Ok(response);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Results.Unauthorized();
             }
             catch (NotFoundException ex)
             {
@@ -112,6 +134,7 @@ namespace AntiTail.Api.Controllers
         }
 
         [HttpDelete("{id:long}")]
+        [Authorize]
         public async Task<IResult> DeleteSubject(
             [FromRoute] long id)
         {
@@ -120,6 +143,10 @@ namespace AntiTail.Api.Controllers
                 await _subjectService.DeleteSubject(id);
 
                 return Results.NoContent();
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Results.Unauthorized();
             }
             catch (NotFoundException ex)
             {

@@ -1,6 +1,7 @@
 ﻿using AntiTail.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Text;
 
 namespace AntiTail.Api.Extensions
@@ -38,6 +39,18 @@ namespace AntiTail.Api.Extensions
                 });
 
             services.AddAuthorization();
+        }
+
+        public static long GetUserId(this ClaimsPrincipal principal)
+        {
+            var userIdClaim = principal.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null || !long.TryParse(userIdClaim.Value, out long userId))
+            {
+                throw new UnauthorizedAccessException();
+            }
+
+            return userId;
         }
     }
 }
