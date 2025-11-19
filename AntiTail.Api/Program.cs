@@ -1,6 +1,7 @@
 using AntiTail.Api.Extensions;
 using AntiTail.Application.Services;
 using AntiTail.Domain.Interfaces.Auth;
+using AntiTail.Domain.Interfaces.Exercises;
 using AntiTail.Domain.Interfaces.Subjects;
 using AntiTail.Domain.Interfaces.Users;
 using AntiTail.Infrastructure;
@@ -26,9 +27,11 @@ builder.Services.AddApiAuthentification(builder.Configuration);
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
+builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ISubjectService, SubjectService>();
+builder.Services.AddScoped<IExerciseService, ExerciseService>();
 
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
