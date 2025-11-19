@@ -14,7 +14,7 @@
 
         public string Title { get; set; } = title;
 
-        public string? Description { get; set; } = description;
+        public string Description { get; set; } = description;
 
         public Status Status { get; set; } = Status.Pending;
 
