@@ -4,7 +4,7 @@ namespace AntiTail.Domain.Interfaces.Subtasks
 {
     public interface ISubtaskRepository
     {
-        Task<Exercise> Create(long exerciseId, string title);
+        Task<Subtask> Create(long exerciseId, string title);
 
         Task<List<Subtask>> GetAll(long exerciseId);
 
