@@ -8,12 +8,12 @@ namespace AntiTail.Domain.Interfaces.Subtasks
 
         Task<List<Subtask>> GetAll(long exerciseId);
 
-        Task<Subtask> GetById(long subtaskId);
+        Task<Subtask> GetById(long id);
 
-        Task<bool> Update(long subtaskId, string title);
+        Task<bool> Update(long id, string title);
 
-        Task<bool> UpdateStatus(long subtaskId, Status status);
+        Task<bool> UpdateStatus(long id, Status status);
 
-        Task<bool> Delete(long subtaskId);
+        Task<bool> Delete(long id);
     }
 }
