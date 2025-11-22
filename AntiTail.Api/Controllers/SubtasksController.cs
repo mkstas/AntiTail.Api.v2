@@ -142,6 +142,10 @@ namespace AntiTail.Api.Controllers
             {
                 return Results.NotFound(new { message = ex.Message });
             }
+            catch (BadRequestException ex)
+            {
+                return Results.BadRequest(new { message = ex.Message });
+            }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);

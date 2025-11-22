@@ -33,7 +33,7 @@ namespace AntiTail.Application.Services
 
         public async Task<bool> UpdateExerciseStatus(long id, string status)
         {
-            if (!Enum.TryParse(status, true, out Status statusEnum) && 
+            if (!Enum.TryParse(status, true, out Status statusEnum) || 
                 !Enum.IsDefined(statusEnum))
             {
                 throw new BadRequestException("Invalid status value.");
