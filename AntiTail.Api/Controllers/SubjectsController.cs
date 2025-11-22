@@ -107,11 +107,9 @@ namespace AntiTail.Api.Controllers
         {
             try
             {
-                var subject = await _subjectService.UpdateSubject(id, User.GetUserId(), request.Title);
+                await _subjectService.UpdateSubject(id, User.GetUserId(), request.Title);
 
-                var response = new SubjectResponse(subject.Id, User.GetUserId(), subject.Title);
-
-                return Results.Ok(response);
+                return Results.NoContent();
             }
             catch (UnauthorizedAccessException)
             {

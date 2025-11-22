@@ -5,7 +5,7 @@ namespace AntiTail.API.Contracts.Users
     public record RegisterUserRequest(
         [Required(ErrorMessage = "Login is required.")]
         [MinLength(2, ErrorMessage = "Login must be at least 2 characters long.")]
-        [MaxLength(2, ErrorMessage = "Login cannot exceed 24 characters.")]
+        [MaxLength(24, ErrorMessage = "Login cannot exceed 24 characters.")]
         [RegularExpression(@"^[a-zA-Z0-9_]+$", ErrorMessage = "Login can only contain letters, numbers, and underscores.")]
         string Login,
 
