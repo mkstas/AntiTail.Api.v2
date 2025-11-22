@@ -1,4 +1,4 @@
-﻿using AntiTail.Domain.Models;
+﻿using AntiTail.Domain.Entities;
 using AntiTail.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 

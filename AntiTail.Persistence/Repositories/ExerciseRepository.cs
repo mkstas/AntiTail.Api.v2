@@ -1,7 +1,8 @@
-﻿using AntiTail.Domain.Interfaces.Exercises;
-using AntiTail.Domain.Models;
+﻿using AntiTail.Domain.Interfaces.Repositories;
+using AntiTail.Domain.Entities;
 using AntiTail.Infrastructure.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using AntiTail.Domain.Shared.Enums;
 
 namespace AntiTail.Persistence.Repositories
 {

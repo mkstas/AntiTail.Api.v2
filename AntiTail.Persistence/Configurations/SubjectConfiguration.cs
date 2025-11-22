@@ -1,4 +1,4 @@
-﻿using AntiTail.Domain.Models;
+﻿using AntiTail.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
