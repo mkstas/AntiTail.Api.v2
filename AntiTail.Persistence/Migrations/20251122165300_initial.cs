@@ -53,7 +53,7 @@ namespace AntiTail.Persistence.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     subject_id = table.Column<long>(type: "bigint", nullable: false),
                     title = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
-                    description = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: true, defaultValue: ""),
+                    description = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: false, defaultValue: ""),
                     status = table.Column<string>(type: "text", nullable: false, defaultValue: "Pending")
                 },
                 constraints: table =>

@@ -21,7 +21,7 @@ namespace AntiTail.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("AntiTail.Domain.Models.Exercise", b =>
+            modelBuilder.Entity("AntiTail.Domain.Entities.Exercise", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -31,6 +31,7 @@ namespace AntiTail.Persistence.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("character varying(512)")
@@ -61,7 +62,7 @@ namespace AntiTail.Persistence.Migrations
                     b.ToTable("exercises", (string)null);
                 });
 
-            modelBuilder.Entity("AntiTail.Domain.Models.Subject", b =>
+            modelBuilder.Entity("AntiTail.Domain.Entities.Subject", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -87,7 +88,7 @@ namespace AntiTail.Persistence.Migrations
                     b.ToTable("subjects", (string)null);
                 });
 
-            modelBuilder.Entity("AntiTail.Domain.Models.Subtask", b =>
+            modelBuilder.Entity("AntiTail.Domain.Entities.Subtask", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -120,7 +121,7 @@ namespace AntiTail.Persistence.Migrations
                     b.ToTable("subtasks", (string)null);
                 });
 
-            modelBuilder.Entity("AntiTail.Domain.Models.User", b =>
+            modelBuilder.Entity("AntiTail.Domain.Entities.User", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -148,9 +149,9 @@ namespace AntiTail.Persistence.Migrations
                     b.ToTable("users", (string)null);
                 });
 
-            modelBuilder.Entity("AntiTail.Domain.Models.Exercise", b =>
+            modelBuilder.Entity("AntiTail.Domain.Entities.Exercise", b =>
                 {
-                    b.HasOne("AntiTail.Domain.Models.Subject", "Subject")
+                    b.HasOne("AntiTail.Domain.Entities.Subject", "Subject")
                         .WithMany("Exercises")
                         .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -159,9 +160,9 @@ namespace AntiTail.Persistence.Migrations
                     b.Navigation("Subject");
                 });
 
-            modelBuilder.Entity("AntiTail.Domain.Models.Subject", b =>
+            modelBuilder.Entity("AntiTail.Domain.Entities.Subject", b =>
                 {
-                    b.HasOne("AntiTail.Domain.Models.User", "User")
+                    b.HasOne("AntiTail.Domain.Entities.User", "User")
                         .WithMany("Subjects")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -170,9 +171,9 @@ namespace AntiTail.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("AntiTail.Domain.Models.Subtask", b =>
+            modelBuilder.Entity("AntiTail.Domain.Entities.Subtask", b =>
                 {
-                    b.HasOne("AntiTail.Domain.Models.Exercise", "Exercise")
+                    b.HasOne("AntiTail.Domain.Entities.Exercise", "Exercise")
                         .WithMany("Subtasks")
                         .HasForeignKey("ExerciseId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -181,17 +182,17 @@ namespace AntiTail.Persistence.Migrations
                     b.Navigation("Exercise");
                 });
 
-            modelBuilder.Entity("AntiTail.Domain.Models.Exercise", b =>
+            modelBuilder.Entity("AntiTail.Domain.Entities.Exercise", b =>
                 {
                     b.Navigation("Subtasks");
                 });
 
-            modelBuilder.Entity("AntiTail.Domain.Models.Subject", b =>
+            modelBuilder.Entity("AntiTail.Domain.Entities.Subject", b =>
                 {
                     b.Navigation("Exercises");
                 });
 
-            modelBuilder.Entity("AntiTail.Domain.Models.User", b =>
+            modelBuilder.Entity("AntiTail.Domain.Entities.User", b =>
                 {
                     b.Navigation("Subjects");
                 });
