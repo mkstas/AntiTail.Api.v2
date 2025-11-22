@@ -1,5 +1,5 @@
 ﻿using AntiTail.API.Contracts.Users;
-using AntiTail.Domain.Interfaces.Users;
+using AntiTail.Domain.Interfaces.Services;
 using AntiTail.Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 

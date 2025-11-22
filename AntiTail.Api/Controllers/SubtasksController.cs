@@ -1,5 +1,5 @@
 ﻿using AntiTail.Api.Contracts.Subtasks;
-using AntiTail.Domain.Interfaces.Subtasks;
+using AntiTail.Domain.Interfaces.Services;
 using AntiTail.Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

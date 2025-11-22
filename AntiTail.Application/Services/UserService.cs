@@ -1,5 +1,6 @@
 ﻿using AntiTail.Domain.Interfaces.Auth;
-using AntiTail.Domain.Interfaces.Users;
+using AntiTail.Domain.Interfaces.Repositories;
+using AntiTail.Domain.Interfaces.Services;
 using AntiTail.Infrastructure.Exceptions;
 
 namespace AntiTail.Application.Services

@@ -1,5 +1,8 @@
-﻿using AntiTail.Domain.Interfaces.Exercises;
-using AntiTail.Domain.Models;
+﻿using AntiTail.Domain.Interfaces.Repositories;
+using AntiTail.Domain.Interfaces.Services;
+using AntiTail.Domain.Entities;
+using AntiTail.Domain.Shared.Enums;
+using AntiTail.Infrastructure.Exceptions;
 
 namespace AntiTail.Application.Services
 {
@@ -28,9 +31,15 @@ namespace AntiTail.Application.Services
             return await _exerciseRepository.Update(id, title, description);
         }
 
-        public async Task<bool> UpdateExerciseStatus(long id, Status status)
+        public async Task<bool> UpdateExerciseStatus(long id, string status)
         {
-            return await _exerciseRepository.UpdateStatus(id, status);
+            if (!Enum.TryParse(status, true, out Status statusEnum) && 
+                !Enum.IsDefined(statusEnum))
+            {
+                throw new BadRequestException("Invalid status value.");
+            }
+
+            return await _exerciseRepository.UpdateStatus(id, statusEnum);
         }
 
         public async Task<bool> DeleteExercise(long id)

@@ -1,6 +1,6 @@
 ﻿using AntiTail.Api.Contracts.Subjects;
 using AntiTail.Api.Extensions;
-using AntiTail.Domain.Interfaces.Subjects;
+using AntiTail.Domain.Interfaces.Services;
 using AntiTail.Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

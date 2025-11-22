@@ -1,5 +1,6 @@
-﻿using AntiTail.Domain.Interfaces.Subjects;
-using AntiTail.Domain.Models;
+﻿using AntiTail.Domain.Interfaces.Repositories;
+using AntiTail.Domain.Interfaces.Services;
+using AntiTail.Domain.Entities;
 
 namespace AntiTail.Application.Services
 {
@@ -23,7 +24,7 @@ namespace AntiTail.Application.Services
             return await _subjectRepository.Create(userId, title);
         }
 
-        public async Task<Subject> UpdateSubject(long id, long userId, string title)
+        public async Task<bool> UpdateSubject(long id, long userId, string title)
         {
             return await _subjectRepository.Update(id, userId, title);
         }

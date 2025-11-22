@@ -1,5 +1,4 @@
 ﻿using AntiTail.Domain.Entities;
-using AntiTail.Domain.Shared.Enums;
 
 namespace AntiTail.Domain.Interfaces.Services
 {
@@ -13,7 +12,7 @@ namespace AntiTail.Domain.Interfaces.Services
 
         Task<bool> UpdateExercise(long id, string title, string description);
 
-        Task<bool> UpdateExerciseStatus(long id, Status status);
+        Task<bool> UpdateExerciseStatus(long id, string status);
 
         Task<bool> DeleteExercise(long id);
     }

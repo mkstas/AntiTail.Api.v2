@@ -1,5 +1,8 @@
-﻿using AntiTail.Domain.Interfaces.Subtasks;
-using AntiTail.Domain.Models;
+﻿using AntiTail.Domain.Entities;
+using AntiTail.Domain.Interfaces.Repositories;
+using AntiTail.Domain.Interfaces.Services;
+using AntiTail.Domain.Shared.Enums;
+using AntiTail.Infrastructure.Exceptions;
 
 namespace AntiTail.Application.Services
 {
@@ -27,9 +30,15 @@ namespace AntiTail.Application.Services
             return await _subtaskRepository.Update(id, title);
         }
 
-        public async Task<bool> UpdateSubtaskStatus(long id, Status status)
+        public async Task<bool> UpdateSubtaskStatus(long id, string status)
         {
-            return await _subtaskRepository.UpdateStatus(id, status);
+            if (!Enum.TryParse(status, true, out Status statusEnum) &&
+                !Enum.IsDefined(statusEnum))
+            {
+                throw new BadRequestException("Invalid status value.");
+            }
+
+            return await _subtaskRepository.UpdateStatus(id, statusEnum);
         }
 
         public async Task<bool> DeleteSubtask(long id)
