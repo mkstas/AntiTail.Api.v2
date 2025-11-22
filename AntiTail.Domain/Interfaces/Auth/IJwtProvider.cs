@@ -1,4 +1,4 @@
-﻿using AntiTail.Domain.Models;
+﻿using AntiTail.Domain.Entities;
 
 namespace AntiTail.Domain.Interfaces.Auth
 {
