@@ -1,6 +1,7 @@
-﻿using AntiTail.Domain.Models;
+﻿using AntiTail.Domain.Entities;
+using AntiTail.Domain.Shared.Enums;
 
-namespace AntiTail.Domain.Interfaces.Exercises
+namespace AntiTail.Domain.Interfaces.Repositories
 {
     public interface IExerciseRepository
     {

@@ -1,4 +1,4 @@
-﻿namespace AntiTail.Domain.Models
+﻿namespace AntiTail.Domain.Entities
 {
     public class Subject(long userId, string title)
     {

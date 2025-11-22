@@ -1,6 +1,6 @@
-﻿using AntiTail.Domain.Models;
+﻿using AntiTail.Domain.Entities;
 
-namespace AntiTail.Domain.Interfaces.Subjects
+namespace AntiTail.Domain.Interfaces.Repositories
 {
     public interface ISubjectRepository
     {
@@ -10,7 +10,7 @@ namespace AntiTail.Domain.Interfaces.Subjects
 
         Task<Subject> GetById(long id);
 
-        Task<Subject> Update(long id, long userId, string title);
+        Task<bool> Update(long id, long userId, string title);
 
         Task<bool> Delete(long id);
     }

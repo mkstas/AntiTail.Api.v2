@@ -1,6 +1,7 @@
-﻿using AntiTail.Domain.Models;
+﻿using AntiTail.Domain.Entities;
+using AntiTail.Domain.Shared.Enums;
 
-namespace AntiTail.Domain.Interfaces.Subtasks
+namespace AntiTail.Domain.Interfaces.Repositories
 {
     public interface ISubtaskRepository
     {

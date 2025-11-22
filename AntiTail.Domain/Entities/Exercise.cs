@@ -1,11 +1,7 @@
-﻿namespace AntiTail.Domain.Models
-{
-    public enum Status
-    {
-        Pending,
-        Succeeded,
-    }
+﻿using AntiTail.Domain.Shared.Enums;
 
+namespace AntiTail.Domain.Entities
+{
     public class Exercise(long subjectId, string title, string description = "")
     {
         public long Id { get; set; }

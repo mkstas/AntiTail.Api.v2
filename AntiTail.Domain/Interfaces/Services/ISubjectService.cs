@@ -1,6 +1,6 @@
-﻿using AntiTail.Domain.Models;
+﻿using AntiTail.Domain.Entities;
 
-namespace AntiTail.Domain.Interfaces.Subjects
+namespace AntiTail.Domain.Interfaces.Services
 {
     public interface ISubjectService
     {
@@ -10,7 +10,7 @@ namespace AntiTail.Domain.Interfaces.Subjects
 
         Task<Subject> GetSubjectById(long id);
 
-        Task<Subject> UpdateSubject(long id, long userId, string title);
+        Task<bool> UpdateSubject(long id, long userId, string title);
 
         Task<bool> DeleteSubject(long id);
     }

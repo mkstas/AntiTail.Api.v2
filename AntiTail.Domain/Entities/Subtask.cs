@@ -1,4 +1,6 @@
-﻿namespace AntiTail.Domain.Models
+﻿using AntiTail.Domain.Shared.Enums;
+
+namespace AntiTail.Domain.Entities
 {
     public class Subtask(long exerciseId, string title)
     {

@@ -1,4 +1,4 @@
-﻿namespace AntiTail.Domain.Interfaces.Users
+﻿namespace AntiTail.Domain.Interfaces.Services
 {
     public interface IUserService
     {
