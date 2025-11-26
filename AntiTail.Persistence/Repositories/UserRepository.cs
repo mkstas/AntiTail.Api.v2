@@ -28,6 +28,13 @@ namespace AntiTail.Persistence.Repositories
             return user;
         }
 
+        public async Task<User> GetById(long id)
+        {
+            return await _context.Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Id == id) ?? throw new NotFoundException("User is not found.");
+        }
+
         public async Task<User> GetByLogin(string login)
         {
             return await _context.Users

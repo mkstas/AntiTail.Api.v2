@@ -6,6 +6,8 @@ namespace AntiTail.Domain.Interfaces.Repositories
     {
         Task<User> Create(string login, string passwordHash);
 
+        Task<User> GetById(long id);
+
         Task<User> GetByLogin(string login);
     }
 }

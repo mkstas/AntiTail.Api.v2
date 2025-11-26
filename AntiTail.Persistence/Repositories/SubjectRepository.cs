@@ -30,10 +30,17 @@ namespace AntiTail.Persistence.Repositories
 
         public async Task<List<Subject>> GetAll(long userId)
         {
-            return await _context.Subjects
+            var subjects = await _context.Subjects
                 .AsNoTracking()
                 .Where(s => s.UserId == userId)
-                .ToListAsync() ?? throw new NotFoundException("Subjects are not found.");
+                .ToListAsync();
+
+            if (subjects.Count == 0)
+            {
+                throw new NotFoundException("Subjects are not found.");
+            }
+
+            return subjects;
         }
 
         public async Task<Subject> GetById(long id)
